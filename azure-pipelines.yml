@@ -75,6 +75,8 @@ stages:
       succeeded(),
       eq(variables['Build.SourceBranchName'],variables['releaseBranchName'])
     )
+  pool:
+    name: Linux-wsl
   jobs:
     - deployment: 
       environment: Dev
