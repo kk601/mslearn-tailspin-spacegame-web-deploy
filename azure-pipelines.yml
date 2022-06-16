@@ -86,10 +86,8 @@ stages:
         runOnce:
           deploy:
             steps:
-              - task: DownloadPipelineArtifact@2
-                inputs:
-                  source: 'specific'
-                  artifactName: drop
+              - download: current
+                artifact: drop
               - task: AzureWebApp@1
                 displayName: 'Azure App Service Deploy: website'
                 inputs:
