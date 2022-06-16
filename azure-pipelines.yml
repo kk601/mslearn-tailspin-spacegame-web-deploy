@@ -11,7 +11,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'ubuntu-20.04'
+      name: Linux-wsl
       demands:
       - npm
 
@@ -35,6 +35,8 @@ stages:
 
     - task: gulp@1
       displayName: 'Run gulp tasks'
+      inputs:
+        gulpjs: './node_modules/gulp/bin/gulp.js'
 
     - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
       displayName: 'Write build info'
@@ -70,8 +72,7 @@ stages:
   dependsOn: Build
   jobs:
   - deployment: Deploy
-    pool:
-      vmImage: 'ubuntu-20.04'
+    pool: Linux-wsl
     environment: dev
     variables:
     - group: Release
